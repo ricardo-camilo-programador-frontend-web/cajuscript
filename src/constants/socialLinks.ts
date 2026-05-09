@@ -5,8 +5,7 @@
  */
 
 function getEnv( key: string, fallback?: string ): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ( process.env as any )[key] || fallback;
+  return ( process.env as Record<string, string | undefined> )[key] || fallback;
 }
 
 export const SOCIAL_LINKS = {
