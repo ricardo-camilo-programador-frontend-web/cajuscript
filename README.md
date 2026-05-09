@@ -1,5 +1,7 @@
 # 🥜 CajuScript
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4f784f0c-a16d-4fb2-9308-ea8b2aabe388/deploy-status)](https://app.netlify.com/sites/cajuscript/deploys)
+
 **Automated Official Website Finder for Business Prospecting**
 
 CajuScript is a Next.js 15 application that automates the search for official company websites using the Google Custom Search API. Upload an Excel spreadsheet with company names, and it returns up to 4 relevant links per company — ready to download as a new spreadsheet.
