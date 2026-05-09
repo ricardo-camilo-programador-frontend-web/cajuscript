@@ -154,8 +154,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <Script
         src="https://cdn.counter.dev/script.js"
         data-id={
+          process.env.NEXT_PUBLIC_COUNTER_DEV_ID ??
           process.env.COUNTER_API_KEY ??
-'f30df6f3-776d-4154-959d-0210ac8a8325'
+          ''
         }
         data-utcoffset="-3"
       ></Script>
