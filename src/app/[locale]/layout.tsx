@@ -153,11 +153,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <Script
         src="https://cdn.counter.dev/script.js"
-        data-id={
-          process.env.NEXT_PUBLIC_COUNTER_DEV_ID ??
-          process.env.COUNTER_API_KEY ??
-          ''
-        }
+        data-id={process.env.NEXT_PUBLIC_COUNTER_DEV_ID || ''}
         data-utcoffset="-3"
       ></Script>
     </html>
