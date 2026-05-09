@@ -152,6 +152,35 @@ The output file (`prospeccao_com_links.xlsx`) will include the original company 
 
 ---
 
+## 🔧 Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the values.
+
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Site base URL (e.g. `https://cajuscript.tdevs.co/`) |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console verification code |
+| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics measurement ID |
+| `NEXT_PUBLIC_COUNTER_DEV_ID` | Counter.dev analytics ID |
+| `NEXT_PUBLIC_PORTFOLIO_URL` | Portfolio website URL |
+| `NEXT_PUBLIC_GITHUB_URL` | GitHub profile URL |
+| `NEXT_PUBLIC_LINKEDIN_URL` | LinkedIn profile URL |
+| `NEXT_PUBLIC_X_URL` | X (Twitter) profile URL |
+| `NEXT_PUBLIC_INSTAGRAM_URL` | Instagram profile URL |
+| `NEXT_PUBLIC_YOUTUBE_URL` | YouTube channel URL |
+| `NEXT_PUBLIC_FACEBOOK_URL` | Facebook profile URL |
+| `NEXT_PUBLIC_FIGMA_URL` | Figma profile URL |
+| `NEXT_PUBLIC_99FREELAS_URL` | 99Freelas profile URL |
+| `NEXT_PUBLIC_WORKANA_URL` | Workana profile URL |
+| `NEXT_PUBLIC_BUYMEACOFFEE_URL` | Buy Me a Coffee page URL |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Contact email address |
+| `COUNTER_API_KEY` | Counter.dev API key (server-side) |
+
+> **Note:** On Netlify, these vars are also set with the `VITE_` prefix for legacy compatibility. The code always uses `NEXT_PUBLIC_*`.
+
+---
+
 ## 📜 License
 
 [MIT](https://choosealicense.com/licenses/mit/)
