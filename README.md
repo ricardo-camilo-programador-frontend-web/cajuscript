@@ -1,3 +1,4 @@
+[![CI](https://github.com/ricardo-camilo-programador-frontend-web/cajuscript/actions/workflows/ci.yml/badge.svg)](https://github.com/ricardo-camilo-programador-frontend-web/cajuscript/actions)
 # 🥜 CajuScript
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4f784f0c-a16d-4fb2-9308-ea8b2aabe388/deploy-status)](https://app.netlify.com/sites/cajuscript/deploys)
