@@ -6,8 +6,8 @@ import "@/app/globals.css";
 import Provider from "@/app/provider";
 import { Locale, locales } from "@/config/i18n-config";
 import { getTranslations } from 'next-intl/server';
-import Script from "next/script";
 import { notFound } from "next/navigation";
+import { AnalyticsScripts } from "@/components/AnalyticsScripts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -116,22 +116,6 @@ params: Promise<{ locale: string }>;
     <html
       lang={locale}
     >
-      <head>
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
-`,
-          }}
-        />
-      </head>
-
       <body
         className={`scroll-smooth ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -149,16 +133,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {children}
           </Suspense>
         </Provider>
+        <AnalyticsScripts />
       </body>
-
-      <Script
-        src="https://cdn.counter.dev/script.js"
-        data-id={
-          process.env.COUNTER_API_KEY ??
-'f30df6f3-776d-4154-959d-0210ac8a8325'
-        }
-        data-utcoffset="-3"
-      ></Script>
     </html>
   );
 }
