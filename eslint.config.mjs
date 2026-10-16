@@ -22,8 +22,8 @@ const eslintConfig = [
   },
   {
     rules: {
-      'space-in-parens': [off],
-      'space-before-function-paren': [off],
+      'space-in-parens': ['off'],
+      'space-before-function-paren': ['off'],
       curly: ['error', 'all'],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
