@@ -114,7 +114,7 @@ params: Promise<{ locale: string }>;
 
   return (
     <html
-      lang={locale}
+      lang={locale === 'br' ? 'pt-BR' : locale}
     >
       <body
         className={`scroll-smooth ${geistSans.variable} ${geistMono.variable} antialiased`}
