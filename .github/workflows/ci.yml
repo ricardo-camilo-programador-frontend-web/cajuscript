@@ -62,7 +62,6 @@ jobs:
       NEXT_PUBLIC_COUNTER_DEV_ID: ""
       VITE_COUNTER_DEV_ID: ""
       NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ""
-      COUNTER_API_KEY: ""
     steps:
       - uses: actions/checkout@v4
 
