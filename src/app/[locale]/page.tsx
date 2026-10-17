@@ -45,7 +45,7 @@ export default function Home() {
     maxLinksPerCompany: number;
     searchDelay: number;
   }) => {
-    console.log("handleConfigChange", config)
+    console.log("handleConfigChange", config);
     setApiKey( config.apiKey );
     setSearchEngineId( config.searchEngineId );
     setMaxLinksPerCompany( config.maxLinksPerCompany );
@@ -112,7 +112,7 @@ export default function Home() {
           processedResults.push(result);
           setResults([...processedResults]);
           setCurrentIndex(i + 1);
-          
+
           if (i < companies.length - 1) { // Don't delay after the last company
             await new Promise(resolve => setTimeout(resolve, searchDelay));
           }
@@ -153,7 +153,7 @@ export default function Home() {
       addLog('Starting search process', 'info');
 
       const companies = await readCompaniesFromExcel(selectedFile);
-      
+
       if (companies.length === 0) {
         throw new Error('No companies found in the Excel file');
       }
