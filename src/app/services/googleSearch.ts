@@ -45,10 +45,10 @@ export class GoogleSearchService {
       `${normalizedName}.org`,
       ...(companyName.includes(' ')
         ? [
-            `${companyName.toLowerCase().replace(/\s+/g, '-')}.com.br`,
-            `${companyName.toLowerCase().replace(/\s+/g, '-')}.com`,
-            `${companyName.toLowerCase().replace(/\s+/g, '-')}.br`,
-          ]
+          `${companyName.toLowerCase().replace(/\s+/g, '-')}.com.br`,
+          `${companyName.toLowerCase().replace(/\s+/g, '-')}.com`,
+          `${companyName.toLowerCase().replace(/\s+/g, '-')}.br`,
+        ]
         : []),
     ];
   }
@@ -121,7 +121,8 @@ export class GoogleSearchService {
   }
 
   /** Verifica se o erro é relacionado a limite de taxa */
-  private isRateLimitError(error: unknown): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private isRateLimitError(_error: unknown): boolean {
     // Para fetch, não temos um status direto no erro capturado, então assumimos que erros de rede podem ser retentados
     return true; // Ajuste conforme necessário para identificar 429 ou 403
   }
@@ -138,7 +139,7 @@ export class GoogleSearchService {
       const url = new URL(link);
       const domain = url.hostname.replace(/^www\./, '').toLowerCase();
       const blockedDomains = ['google.com', 'youtube.com', 'linkedin.com', 'twitter.com'];
-      if (blockedDomains.some((d) => domain.includes(d))) return true;
+      if (blockedDomains.some((d) => domain.includes(d))) { return true; }
       return BLACKLISTED_DOMAINS.some((d) => domain.includes(d.toLowerCase()));
     } catch {
       return true;
@@ -147,7 +148,7 @@ export class GoogleSearchService {
 
   /** Normaliza e classifica os resultados com base em relevância */
   private normalizeAndRankResults(results: SearchResult[], companyName: string): SearchResult[] {
-    if (results.length === 0) return [];
+    if (results.length === 0) { return []; }
 
     const normalizedCompanyName = companyName
       .toLowerCase()
@@ -161,21 +162,22 @@ export class GoogleSearchService {
         const normalizedDomain = domain.replace(/^www\./, '');
         let score = 0;
 
-        if (normalizedDomain.includes(normalizedCompanyName)) score += 200;
-        if (domain.endsWith('.com.br')) score += 80;
-        else if (domain.endsWith('.br')) score += 60;
-        else if (domain.endsWith('.com')) score += 40;
-        if (result.title.toLowerCase().includes(companyName.toLowerCase())) score += 50;
+        if (normalizedDomain.includes(normalizedCompanyName)) { score += 200; }
+        if (domain.endsWith('.com.br')) { score += 80; }
+        else if (domain.endsWith('.br')) { score += 60; }
+        else if (domain.endsWith('.com')) { score += 40; }
+        if (result.title.toLowerCase().includes(companyName.toLowerCase())) { score += 50; }
 
         const officialTerms = ['oficial', 'official', 'homepage', 'home', 'site oficial'];
-        if (officialTerms.some((term) => result.title.toLowerCase().includes(term))) score += 50;
-        if (officialTerms.some((term) => result.snippet?.toLowerCase().includes(term))) score += 30;
+        if (officialTerms.some((term) => result.title.toLowerCase().includes(term))) { score += 50; }
+        if (officialTerms.some((term) => result.snippet?.toLowerCase().includes(term))) { score += 30; }
 
         return { ...result, score };
       })
       .sort((a, b) => (b.score as number) - (a.score as number));
 
-    return scoredResults.map(({ score: _score, ...rest }) => rest);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return scoredResults.map(({ score: _score, ...rest }) => rest) as Omit<SearchResult, 'score'>[];
   }
 
   /** Gera uma URL de fallback para a empresa */
@@ -230,7 +232,9 @@ export class GoogleSearchService {
     let validResultCount = 0;
 
     for (const query of queries) {
-      if (validResultCount >= MAX_RESULTS_PER_COMPANY) break;
+      if (validResultCount >= MAX_RESULTS_PER_COMPANY) {
+        break;
+      }
 
       const items = await this.executeSearchQuery(query);
       const filteredItems = items
@@ -251,7 +255,9 @@ export class GoogleSearchService {
 
     if (allResults.length === 0) {
       const directResults = await this.fallbackDirectDomainCheck(companyName);
-      if (directResults.length > 0) allResults.push(...directResults);
+      if (directResults.length > 0) {
+        allResults.push(...directResults);
+      }
     }
 
     if (allResults.length === 0) {
@@ -266,7 +272,9 @@ export class GoogleSearchService {
 
     const uniqueResultsMap = new Map<string, SearchResult>();
     allResults.forEach((item) => {
-      if (!uniqueResultsMap.has(item.link)) uniqueResultsMap.set(item.link, item);
+      if (!uniqueResultsMap.has(item.link)) {
+        uniqueResultsMap.set(item.link, item);
+      }
     });
 
     const uniqueResults = Array.from(uniqueResultsMap.values());

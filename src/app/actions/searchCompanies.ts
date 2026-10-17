@@ -8,12 +8,6 @@ import {
 import { parseExcelFile } from '@/utils/excelParser';
 import { GoogleSearchService } from '../services/googleSearch';
 
-interface GoogleSearchItem {
-  title: string;
-  link: string;
-  snippet: string;
-}
-
 interface GoogleSearchResult {
   title: string;
   link: string;
