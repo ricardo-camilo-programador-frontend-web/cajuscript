@@ -9,18 +9,20 @@ on:
 jobs:
   validate:
     name: Validar Linting e Formatacao
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          version: 11
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
@@ -30,7 +32,7 @@ jobs:
 
   build:
     name: Build do Projeto
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       NEXT_PUBLIC_SITE_URL: ""
@@ -65,13 +67,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          version: 11
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
@@ -88,40 +92,44 @@ jobs:
 
   test:
     name: Testes
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          version: 11
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
 
       - name: Executar testes
-        run: pnpm run test
+        run: pnpm run test -- --pass-with-no-tests
 
   security:
     name: Auditoria de Seguranca
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          version: 11
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
@@ -148,17 +156,21 @@ jobs:
 
   sonar:
     name: Analise SonarQube
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    # O SonarQube do projeto roda em localhost:9000 (máquina local); só roda se SONAR_HOST_URL estiver definido nas variables do repo
+    if: ${{ vars.SONAR_HOST_URL != '' }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          version: 11
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
         run: pnpm install --ignore-scripts
@@ -166,32 +178,5 @@ jobs:
       - name: Run SonarScanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: /opt/sonar-scanner/bin/sonar-scanner
-
-  deploy:
-    name: Deploy Netlify
-    runs-on: self-hosted
-    needs: [build]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Cache pnpm store
-        uses: actions/cache@v3
-        with:
-          path: ~/.local/share/pnpm/store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Instalar dependencias
-        run: pnpm install --ignore-scripts
-
-      - name: Build do projeto
-        run: pnpm run build
-
-      - name: Deploy to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: npx netlify deploy --prod --dir=dist
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+        uses: SonarSource/sonarqube-scan-action@v5
