@@ -111,7 +111,7 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Executar testes
-        run: pnpm run test -- --pass-with-no-tests
+        run: pnpm exec playwright test --pass-with-no-tests
 
   security:
     name: Auditoria de Seguranca
