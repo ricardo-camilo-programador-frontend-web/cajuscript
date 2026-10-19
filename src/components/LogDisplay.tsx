@@ -35,7 +35,7 @@ export default function LogDisplay({ logs, onClearLogs }: LogDisplayProps ) {
 
       <div className="bg-gray-800 text-gray-200 font-mono text-sm p-4 rounded-md h-60 overflow-y-auto">
         {logs.length === 0 ? (
-          <p className="text-gray-500">No logs yet</p>
+          <p className="text-gray-400">No logs yet</p>
         ) : (
           logs.map(( log, index ) => (
             <div key={index}

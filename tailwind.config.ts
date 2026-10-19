@@ -12,16 +12,16 @@ const config: Config = {
         background: 'var(--white)',
         foreground: 'var(--black)',
         primary: {
-          DEFAULT: '#E67E22', // Caju color - orange
+          DEFAULT: '#B85C12', // Caju color - orange
           50: '#FDF3E7',
           100: '#FCE7CF',
           200: '#F8CFA0',
           300: '#F4B770',
           400: '#F09F41',
-          500: '#E67E22', // Primary
-          600: '#C36818',
-          700: '#9F5313',
-          800: '#7C3F0E',
+          500: '#B85C12', // Primary
+          600: '#A05010',
+          700: '#88440E',
+          800: '#70380C',
           900: '#582C0A',
         },
         secondary: {
