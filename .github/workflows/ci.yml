@@ -140,7 +140,9 @@ jobs:
           set -o pipefail
           LOG_FILE="$(mktemp)"
 
-          pnpm audit --audit-level moderate 2>&1 | tee "$LOG_FILE"
+          # GHSA-vfj7-8cjw-p6xm (braces): fix 3.0.4 ainda nao publicado no npm (max 3.0.3).
+          # So afeta devDependencies (eslint-config-next, tailwindcss); `pnpm audit --prod` esta limpo.
+          pnpm audit --audit-level moderate --ignore=GHSA-vfj7-8cjw-p6xm 2>&1 | tee "$LOG_FILE"
           status=${PIPESTATUS[0]}
 
           if [ "$status" -eq 0 ]; then
