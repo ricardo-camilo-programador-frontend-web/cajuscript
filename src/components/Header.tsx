@@ -25,13 +25,15 @@ export default function Header() {
 
           <div className="mt-4 md:mt-0 flex space-x-4">
             <Link
-              href="/br"
+              href="/"
+              locale="br"
               className="text-gray-600 hover:text-primary text-sm font-medium"
             >
               Português
             </Link>
             <Link
-              href="/en"
+              href="/"
+              locale="en"
               className="text-gray-600 hover:text-primary text-sm font-medium"
             >
               English
