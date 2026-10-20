@@ -26,7 +26,10 @@
     "waiting": "Waiting to start...",
     "processing": "Processing {current} of {total}...",
     "complete": "Search completed!",
-    "error": "An error occurred during the search"
+    "error": "An error occurred during the search",
+    "errorHelp": "Check your connection and settings and try again",
+    "paused": "Search paused",
+    "pausedHelp": "Click 'Start' to continue the search"
   },
   "results": {
     "title": "Results",
