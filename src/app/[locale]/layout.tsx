@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
@@ -134,6 +135,10 @@ params: Promise<{ locale: string }>;
           </Suspense>
         </Provider>
         <AnalyticsScripts />
+        <Script
+          src="/rc-study-modal.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
