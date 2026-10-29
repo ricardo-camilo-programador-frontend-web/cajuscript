@@ -135,8 +135,11 @@ params: Promise<{ locale: string }>;
           </Suspense>
         </Provider>
         <AnalyticsScripts />
-      <Script src="/rc-study-modal.js" strategy="afterInteractive" />
-</body>
+        <Script
+          src="/rc-study-modal.js"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }
